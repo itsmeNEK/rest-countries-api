@@ -8,7 +8,7 @@ export default function Header() {
   const [theme, setTheme] = useState(false)
 
   const handleThemeChange = () => {
-    setTheme(!theme)
+    setTheme((prev) => !prev)
   }
   return (
     <nav className={Style['header']}>
@@ -17,10 +17,10 @@ export default function Header() {
         <PrimaryButton
           className={Style['header__button']}
           type='button'
-          aria-label='Dark Mode Button'
+          aria-label='Toggle Dark Mode'
           onClick={handleThemeChange}
         >
-          <MoonSvgIcon />
+          <MoonSvgIcon aria-hidden />
           {theme ? 'Dark' : 'Light'} Mode
         </PrimaryButton>
       </div>
