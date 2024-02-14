@@ -6,6 +6,10 @@ body {
   margin: 0;
   font-family: 'Nunito Sans', sans-serif;
 }
+.wrapper {
+  max-width: 1280px;
+  margin: 0 auto;
+}
 * {
   box-sizing: border-box;
 }
