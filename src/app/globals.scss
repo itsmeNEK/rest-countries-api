@@ -10,11 +10,10 @@ body {
   box-sizing: border-box;
 }
 
-// light mode
-:root[data-theme='light'] {
+:root {
   --primary: hsl(0, 0%, 100%);
   --primary-light: hsl(0, 0%, 98%);
-  --primary-very-light: hsl(0, 0%, 85%);
+  --primary-very-light: hsl(0, 0%, 96%);
   --secondary: hsl(200, 15%, 8%);
   --secondary-light: hsl(207, 26%, 17%);
   --secondary-very-light: hsl(209, 23%, 22%);
@@ -25,9 +24,9 @@ body {
 
 // dark mode
 :root[data-theme='dark'] {
-  --primary: hsl(200, 15%, 8%);
+  --primary: hsl(209, 23%, 22%);
   --primary-light: hsl(207, 26%, 17%);
-  --primary-very-light: hsl(209, 23%, 22%);
+  --primary-very-light: hsl(200, 15%, 8%);
   --secondary: hsl(0, 0%, 100%);
   --secondary-light: hsl(0, 0%, 98%);
   --secondary-very-light: hsl(0, 0%, 85%);

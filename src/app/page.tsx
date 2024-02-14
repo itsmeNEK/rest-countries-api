@@ -1,4 +1,7 @@
 export default function Home() {
-  return
-  ;<main>REST Countries API</main>
+  return (
+    <main>
+      <p>REST Countries API</p>
+    </main>
+  )
 }
