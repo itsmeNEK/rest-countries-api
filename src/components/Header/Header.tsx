@@ -1,14 +1,14 @@
 'use client'
-import React, { useState } from 'react'
 import PrimaryButton from '../common/button/PrimaryButton'
 import MoonSvgIcon from '../common/svg/MoonSvgIcon'
 import Style from './Header.module.scss'
+import { useThemeContext } from '@/context/themeContext'
 
 export default function Header() {
-  const [theme, setTheme] = useState(false)
+  const { theme, toggleTheme } = useThemeContext()
 
   const handleThemeChange = () => {
-    setTheme((prev) => !prev)
+    toggleTheme()
   }
   return (
     <nav className={Style['header']}>
@@ -21,7 +21,7 @@ export default function Header() {
           onClick={handleThemeChange}
         >
           <MoonSvgIcon aria-hidden />
-          {theme ? 'Dark' : 'Light'} Mode
+          {theme === 'dark' ? 'Dark' : 'Light'} Mode
         </PrimaryButton>
       </div>
     </nav>
