@@ -50,13 +50,10 @@ export function ThemeProvider({ children }: ThemeContextProps) {
     [theme, toggleTheme]
   )
 
-  return useMemo(
-    () => (
-      <ThemeContext.Provider value={contextValue}>
-        {children}
-      </ThemeContext.Provider>
-    ),
-    [children, contextValue]
+  return (
+    <ThemeContext.Provider value={contextValue}>
+      {children}
+    </ThemeContext.Provider>
   )
 }
 export const useThemeContext = () => {
