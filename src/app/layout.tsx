@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.scss'
 import Header from '@/components/Header/Header'
-import { ThemeProvider } from '@/context/themeContext'
 
 export const metadata: Metadata = {
   title: 'REST Countries API ',
@@ -16,10 +15,8 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body>
-        <ThemeProvider>
-          <Header />
-          {children}
-        </ThemeProvider>
+        <Header />
+        {children}
       </body>
     </html>
   )
