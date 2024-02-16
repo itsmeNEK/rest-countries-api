@@ -18,27 +18,9 @@
     margin: 0;
     font-size: 1rem;
   }
-  &__button {
-    border: none;
-    border-radius: 10px;
-    font-size: 0.7rem;
-
-    svg {
-      height: 20px;
-      width: 20px;
-      margin-right: 10px;
-
-      path {
-        fill: white;
-      }
-    }
-  }
   @media screen and (min-width: 765px) {
     &__brand {
       font-size: 1.5rem;
-    }
-    &__button {
-      font-size: 1rem;
     }
   }
 }
