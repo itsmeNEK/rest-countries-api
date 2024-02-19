@@ -12,7 +12,6 @@ export default function ToggleDarkMode() {
       onClick={toggleTheme}
       className={Style['dark-mode-button']}
       type='button'
-      aria-label='Dark Mode Button'
     >
       <MoonSvgIcon aria-hidden />
       {theme === 'dark' ? 'Dark' : 'Light'} Mode

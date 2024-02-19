@@ -2,8 +2,7 @@ import PrimaryButton from '../common/button/PrimaryButton'
 import DropdownSelect from '../common/form-control/DropdownSelect'
 import SearchSvgIcon from '../common/svg/SearchSvgIcon'
 import Style from './Countries.module.scss'
-import CountryCard from './SubComponent/CountryCard/CountryCard'
-import { CountryTypes } from '@/types/countryTypes'
+import PaginateCountries from './PaginateCountries'
 import useFetchCountries from '@/utils/useFetchCountries'
 
 export default async function Countries() {
@@ -11,7 +10,6 @@ export default async function Countries() {
 
   const countries = (await useFetchCountries('all', API_URL_FIELDS)) ?? []
   const region = ['Africa', 'America', 'Asia', 'Europe', 'Oceania']
-
   return (
     <div className='wrapper'>
       <div className={Style['filter']}>
@@ -43,9 +41,7 @@ export default async function Countries() {
       </div>
       <div className={Style['countries']}>
         {countries.length > 0 ? (
-          countries.map((country: CountryTypes, index: number) => (
-            <CountryCard key={index} country={country} />
-          ))
+          <PaginateCountries data={countries} />
         ) : (
           <div>No countries found</div>
         )}

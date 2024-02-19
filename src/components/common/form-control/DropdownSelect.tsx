@@ -1,5 +1,6 @@
 'use client'
 import { ReactNode, useRef, useState } from 'react'
+import ArrowDownSvgIcon from '../svg/ArrowDownSvgIcon'
 import Style from './DropdownSelect.module.scss'
 import { useClickOutside } from '@/hooks/useOnClickOutside'
 
@@ -23,32 +24,18 @@ const DropdownSelect = (props: DropdownProps) => {
   })
 
   return (
-    <div className={`${Style.dropdown} ${props.className}`} ref={dropdown}>
+    <div className={`${Style['dropdown']} ${props.className}`} ref={dropdown}>
       <button
         type='button'
         aria-label='Toggle Dropdown'
         onClick={toggleDropdown}
-        className={Style.dropdown__toggle}
+        className={Style['dropdown__toggle']}
       >
         {props.toggleLabel}
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          fill='none'
-          viewBox='0 0 24 24'
-          strokeWidth='1.5'
-          stroke='currentColor'
-          width={13}
-          height={13}
-        >
-          <path
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            d='m19.5 8.25-7.5 7.5-7.5-7.5'
-          />
-        </svg>
+        <ArrowDownSvgIcon aria-hidden />
       </button>
 
-      {isOpen && <ul className={Style.dropdown__items}>{props.children}</ul>}
+      {isOpen && <ul className={Style['dropdown__items']}>{props.children}</ul>}
     </div>
   )
 }

@@ -25,7 +25,7 @@ export default async function useFetchCountries(
       return 0
     })
     return data
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error fetching countries:', error)
   }
 }
