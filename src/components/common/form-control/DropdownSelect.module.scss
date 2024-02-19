@@ -1,0 +1,26 @@
+.dropdown {
+  &__toggle {
+    padding: 20px 25px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px -5px var(--black);
+    background-color: var(--primary);
+    border: none;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+  &__items {
+    position: absolute;
+    background-color: var(--primary);
+    margin-top: 5px;
+    list-style-type: none;
+    padding: 10px 0px;
+    width: 100%;
+
+    li:hover {
+      cursor: pointer;
+    }
+  }
+}

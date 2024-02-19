@@ -1,0 +1,78 @@
+.countries {
+  margin: 20px 0 3rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 3fr));
+  gap: 3rem;
+  justify-items: center;
+  width: 100%;
+
+  @media screen and (min-width: 765px) {
+    gap: 5rem;
+    margin: 50px 0 5rem 0;
+  }
+}
+
+.filter {
+  display: block;
+  justify-content: space-between;
+  padding: 10px 0px;
+  &__search {
+    position: relative;
+    margin: 20px auto;
+    &__input {
+      width: 100%;
+      padding: 20px 25px;
+      padding-left: 70px;
+      background-color: var(--primary);
+      box-shadow: 1px 1px 5px -5px var(--black);
+      border: none;
+      border-radius: 5px;
+      color: var(--black);
+      &::placeholder {
+        color: var(--gray);
+      }
+      &:focus {
+        outline: 1px solid var(--dark-gray);
+      }
+    }
+    svg {
+      position: absolute;
+      left: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+  &__region {
+    display: block;
+    position: relative;
+    margin: 20px auto 0 0;
+    width: 60%;
+
+    ul {
+      box-shadow: 1px 1px 5px -5px var(--black);
+      border-radius: 5px;
+    }
+    &__items {
+      width: 100%;
+      justify-content: start;
+      padding: 4px 10px;
+      &:hover {
+        background-color: var(--primary-very-light);
+      }
+    }
+  }
+
+  @media screen and (min-width: 765px) {
+    padding: 10px 0px;
+    display: flex;
+    &__region {
+      margin: 50px 0 0 auto;
+      width: 200px;
+    }
+    &__search {
+      margin: 50px auto 0 0;
+      width: 480px;
+    }
+  }
+}
