@@ -3,12 +3,12 @@ import DropdownSelect from '../common/form-control/DropdownSelect'
 import SearchSvgIcon from '../common/svg/SearchSvgIcon'
 import Style from './Countries.module.scss'
 import PaginateCountries from './PaginateCountries'
-import useFetchCountries from '@/utils/useFetchCountries'
+import fetchCountries from '@/utils/FetchCountries'
 
 export default async function Countries() {
   const API_URL_FIELDS = '?fields=name,flags,population,region,capital,cca3'
 
-  const countries = (await useFetchCountries('all', API_URL_FIELDS)) ?? []
+  const countries = (await fetchCountries('all', API_URL_FIELDS)) ?? []
   const region = ['Africa', 'America', 'Asia', 'Europe', 'Oceania']
   return (
     <div className='wrapper'>
