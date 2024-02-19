@@ -20,7 +20,7 @@ export default function CountryCard({ country }: CountryCardProps) {
           className={Style['card__image']}
         />
         <div className={Style['card__body']}>
-          <p className={Style['card__body__title']}>{country.name.common}</p>
+          <h2 className={Style['card__body__title']}>{country.name.common}</h2>
           <p className={Style['card__body__text']}>
             Population:<span>{country.population.toLocaleString()}</span>
           </p>
