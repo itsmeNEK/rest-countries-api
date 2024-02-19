@@ -1,14 +1,14 @@
 .countries {
-  margin-top: 20px;
+  margin: 20px 0 3rem 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(229px, 2fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 3fr));
   gap: 3rem;
   justify-items: center;
   width: 100%;
 
   @media screen and (min-width: 765px) {
     gap: 5rem;
-    margin-top: 50px;
+    margin-top: 50px 0 5rem 0;
   }
 }
 

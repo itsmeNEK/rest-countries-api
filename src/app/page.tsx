@@ -1,11 +1,6 @@
 import Countries from '@/components/Countries/Countries'
 
-export default function Home({
-  searchParams,
-}: {
-  [key: string]: string | string[] | undefined
-}) {
-  console.log(searchParams)
+export default function Home() {
   return (
     <main>
       <Countries />
