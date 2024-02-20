@@ -6,7 +6,7 @@ import Style from './page.module.scss'
 import BackButton from '@/components/BackButton/BackButton'
 import { formatNullableValue } from '@/helpers/formatNullableValue'
 import renderObjectValues from '@/helpers/renderObjectValues'
-import fetchCountries from '@/utils/FetchCountries'
+import fetchCountries from '@/utils/fetchCountries'
 import fetchCountryNames from '@/utils/fetchCountryName'
 const API_URL_FIELDS =
   '?fields=name,flags,population,region,subregion,capital,languages,currencies,tld,altSpellings,borders,cca3'
@@ -39,7 +39,7 @@ export default async function CountryDetails({
 
   const bordersNames = await fetchCountryNames(borders)
   return (
-    <section className='wrapper'>
+    <main className='wrapper'>
       <div className={Style['top-navigation']}>
         <BackButton />
       </div>
@@ -122,6 +122,6 @@ export default async function CountryDetails({
           </div>
         </div>
       </div>
-    </section>
+    </main>
   )
 }

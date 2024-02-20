@@ -10,19 +10,8 @@ import {
 } from 'react'
 import { ThemeContextType } from '@/types/themeTypes'
 
-const getThemeFromLocalStorage = () => {
-  if (typeof window === 'undefined') return 'light'
-
-  const themeValue = localStorage.getItem('theme')
-
-  if (themeValue) return themeValue
-
-  return 'light'
-}
-const DEFAULT_THEME = getThemeFromLocalStorage()
-
 const initialState: ThemeContextType = {
-  theme: DEFAULT_THEME,
+  theme: 'light',
   toggleTheme: () => {
     console.log('test123')
   },
@@ -34,16 +23,10 @@ type ThemeContextProps = {
 }
 export function ThemeProvider({ children }: ThemeContextProps) {
   const [theme, setTheme] = useState<string>(initialState.theme)
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [, theme])
 
   useEffect(() => {
     const root = document.documentElement
     root.setAttribute('data-theme', theme)
-    localStorage.setItem('theme', theme)
   }, [theme])
 
   const toggleTheme = useCallback(() => {
@@ -59,7 +42,7 @@ export function ThemeProvider({ children }: ThemeContextProps) {
   )
   return (
     <ThemeContext.Provider value={contextValue}>
-      {mounted && children}
+      {children}
     </ThemeContext.Provider>
   )
 }
