@@ -4,15 +4,23 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import Style from './SearchFilter.module.scss'
 import SearchSvgIcon from '@/components/common/svg/SearchSvgIcon'
 
-export default function SearchFilter() {
+export default function SearchFilter({
+  searchParams,
+}: {
+  searchParams: {
+    region: string
+    search: string
+  }
+}) {
+  const { region, search } = searchParams
   const router = useRouter()
-  const [search, setSearch] = useState('')
+  const [searchInput, setSearchInput] = useState(search)
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value)
+    setSearchInput(e.target.value)
   }
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    router.push(`?search=${search}`)
+    router.replace(`?search=${searchInput}&region=${region ? region : ''}`)
   }
 
   return (
@@ -23,7 +31,7 @@ export default function SearchFilter() {
           id='search-country-input'
           placeholder='Search for a country'
           className={Style['search__input']}
-          value={search}
+          value={searchInput}
           onChange={handleSearchChange}
         />
         <SearchSvgIcon aria-hidden />

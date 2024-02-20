@@ -1,0 +1,31 @@
+.filter-region {
+  display: block;
+  position: relative;
+  margin: 20px auto 0 0;
+  width: 60%;
+
+  ul {
+    box-shadow: 1px 1px 5px -5px var(--black);
+    border-radius: 5px;
+
+    a {
+      color: var(--black);
+      text-decoration: none;
+    }
+  }
+  &__items {
+    padding: 2px 25px;
+    width: 100%;
+    justify-content: start;
+    &:hover {
+      background-color: var(--primary-very-light);
+    }
+    &-selected {
+      background-color: var(--primary-very-light);
+    }
+  }
+  @media screen and (min-width: 765px) {
+    margin: 50px 0 0 auto;
+    width: 200px;
+  }
+}
