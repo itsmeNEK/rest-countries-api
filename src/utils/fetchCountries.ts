@@ -1,18 +1,21 @@
 import { CountryTypes } from '@/types/countryTypes'
 
-export default async function useFetchCountries(
+export default async function fetchCountries(
   service: string | string[],
   fields: string,
-  params?: string | string[]
+  filter?: string
 ) {
   try {
     const response = await fetch(
-      `https://restcountries.com/v3.1/${service}${params ? '?' + params + '&' : '?'}${fields}`
+      `https://restcountries.com/v3.1/${service}${filter ? '/' + filter : ''}?${fields}`
     )
     if (!response.ok) {
       return
     }
     const data = await response.json()
+    if (service === 'alpha') {
+      return data
+    }
     data.sort((a: CountryTypes, b: CountryTypes) => {
       const nameA = a.name.common.toLowerCase()
       const nameB = b.name.common.toLowerCase()

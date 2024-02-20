@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Style from './CountryCard.module.scss'
+import { formatNullableValue } from '@/helpers/formatNullableValue'
 import { CountryTypes } from '@/types/countryTypes'
 
 type CountryCardProps = {
@@ -25,10 +26,10 @@ export default function CountryCard({ country }: CountryCardProps) {
             Population:<span>{country.population.toLocaleString()}</span>
           </p>
           <p className={Style['card__body__text']}>
-            Region: <span>{country.region}</span>
+            Region: <span>{formatNullableValue(country.region)}</span>
           </p>
           <p className={Style['card__body__text']}>
-            Capital: <span>{country.capital}</span>
+            Capital: <span>{formatNullableValue(country.capital)}</span>
           </p>
         </div>
       </Link>

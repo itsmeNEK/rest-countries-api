@@ -12,9 +12,7 @@ import { ThemeContextType } from '@/types/themeTypes'
 
 const initialState: ThemeContextType = {
   theme: 'light',
-  toggleTheme: () => {
-    console.log('test123')
-  },
+  toggleTheme: () => {},
 }
 const ThemeContext = createContext<ThemeContextType>(initialState)
 
@@ -22,20 +20,11 @@ type ThemeContextProps = {
   children: ReactNode
 }
 export function ThemeProvider({ children }: ThemeContextProps) {
-  const [theme, setTheme] = useState<string>('light')
-  useEffect(() => {
-    const browserTheme = window.matchMedia('(prefers-color-scheme: dark)')
-      .matches
-      ? 'dark'
-      : 'light'
-    const storedTheme = localStorage.getItem('theme') || browserTheme
-    setTheme((prevTheme) => (prevTheme === 'light' ? storedTheme : prevTheme))
-  }, [])
+  const [theme, setTheme] = useState<string>(initialState.theme)
 
   useEffect(() => {
     const root = document.documentElement
     root.setAttribute('data-theme', theme)
-    localStorage.setItem('theme', theme)
   }, [theme])
 
   const toggleTheme = useCallback(() => {
@@ -49,7 +38,6 @@ export function ThemeProvider({ children }: ThemeContextProps) {
     }),
     [theme, toggleTheme]
   )
-
   return (
     <ThemeContext.Provider value={contextValue}>
       {children}
