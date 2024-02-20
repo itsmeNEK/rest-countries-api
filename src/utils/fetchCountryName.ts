@@ -4,6 +4,8 @@ export default async function fetchCountryNames(
   countryCodes: string[]
 ): Promise<{ name: string; code: string }[]> {
   const countries: { name: string; code: string }[] = []
+  if (!countryCodes) return []
+
   for (const code of countryCodes) {
     const data = await fetchCountryName(code)
     if (data) {
@@ -27,7 +29,7 @@ async function fetchCountryName(
     }
     const data = await response.json()
     return data
-  } catch (error) {
+  } catch (error: unknown) {
     console.error(`Error fetching country name for code ${code}:`, error)
     return
   }

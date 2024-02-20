@@ -10,8 +10,19 @@ import {
 } from 'react'
 import { ThemeContextType } from '@/types/themeTypes'
 
+const getThemeFromLocalStorage = () => {
+  if (typeof window === 'undefined') return 'light'
+
+  const themeValue = localStorage.getItem('theme')
+
+  if (themeValue) return themeValue
+
+  return 'light'
+}
+const DEFAULT_THEME = getThemeFromLocalStorage()
+
 const initialState: ThemeContextType = {
-  theme: 'light',
+  theme: DEFAULT_THEME,
   toggleTheme: () => {
     console.log('test123')
   },
@@ -22,15 +33,12 @@ type ThemeContextProps = {
   children: ReactNode
 }
 export function ThemeProvider({ children }: ThemeContextProps) {
-  const [theme, setTheme] = useState<string>('light')
+  const [theme, setTheme] = useState<string>(initialState.theme)
+  const [mounted, setMounted] = useState(false)
+
   useEffect(() => {
-    const browserTheme = window.matchMedia('(prefers-color-scheme: dark)')
-      .matches
-      ? 'dark'
-      : 'light'
-    const storedTheme = localStorage.getItem('theme') || browserTheme
-    setTheme((prevTheme) => (prevTheme === 'light' ? storedTheme : prevTheme))
-  }, [])
+    setMounted(true)
+  }, [, theme])
 
   useEffect(() => {
     const root = document.documentElement
@@ -49,10 +57,9 @@ export function ThemeProvider({ children }: ThemeContextProps) {
     }),
     [theme, toggleTheme]
   )
-
   return (
     <ThemeContext.Provider value={contextValue}>
-      {children}
+      {mounted && children}
     </ThemeContext.Provider>
   )
 }

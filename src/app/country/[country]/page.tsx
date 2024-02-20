@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import React from 'react'
 import Style from './page.module.scss'
 import BackButton from '@/components/BackButton/BackButton'
+import { formatNullableValue } from '@/helpers/formatNullableValue'
 import renderObjectValues from '@/helpers/renderObjectValues'
 import fetchCountries from '@/utils/FetchCountries'
 import fetchCountryNames from '@/utils/fetchCountryName'
@@ -60,28 +61,29 @@ export default async function CountryDetails({
           <div className={Style['country-container__details__content']}>
             <div className={Style['divider']}>
               <p>
-                <span>Native Name:</span> {altSpellings[1]}
+                <span>Native Name:</span> {formatNullableValue(altSpellings[1])}
               </p>
 
               <p>
-                <span>Population:</span> {population.toLocaleString()}
+                <span>Population:</span>{' '}
+                {formatNullableValue(population.toLocaleString())}
               </p>
 
               <p>
-                <span>Region:</span> {region}
+                <span>Region:</span> {formatNullableValue(region)}
               </p>
 
               <p>
-                <span>Suspan Region:</span> {subregion}
+                <span>Suspan Region:</span> {formatNullableValue(subregion)}
               </p>
 
               <p>
-                <span>Capital:</span> {capital[0]}
+                <span>Capital:</span> {formatNullableValue(capital[0])}
               </p>
             </div>
             <div className={Style['divider']}>
               <p>
-                <span>Top Level Domain:</span> {tld[0]}
+                <span>Top Level Domain:</span> {formatNullableValue(tld[0])}
               </p>
 
               <p>
@@ -98,7 +100,7 @@ export default async function CountryDetails({
           <div className={Style['country-container__details__borders']}>
             <h2>Border Countries: </h2>
             <div className={Style['links']}>
-              {bordersNames &&
+              {bordersNames.length > 0 ? (
                 bordersNames.map(
                   (border: { name: string; code: string }, index: number) => {
                     const { name, code } = border
@@ -112,7 +114,10 @@ export default async function CountryDetails({
                       </Link>
                     )
                   }
-                )}
+                )
+              ) : (
+                <p>No Border Countries</p>
+              )}
             </div>
           </div>
         </div>
