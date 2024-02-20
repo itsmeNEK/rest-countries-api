@@ -1,32 +1,36 @@
 import PrimaryButton from '../common/button/PrimaryButton'
 import DropdownSelect from '../common/form-control/DropdownSelect'
-import SearchSvgIcon from '../common/svg/SearchSvgIcon'
 import Style from './Countries.module.scss'
 import PaginateCountries from './PaginateCountries'
-import fetchCountries from '@/utils/FetchCountries'
+import SearchFilter from './SubComponent/SearchFilter/SearchFilter'
+import fetchCountries from '@/utils/fetchCountries'
 
-export default async function Countries() {
+export default async function Countries({
+  searchParams,
+}: {
+  searchParams: {
+    region: string
+    search: string
+  }
+}) {
+  const { region, search } = searchParams
+  const service = region || search ? (region ? 'region' : 'name') : 'all'
+  const filter = region || search || ''
   const API_URL_FIELDS = '?fields=name,flags,population,region,capital,cca3'
 
-  const countries = (await fetchCountries('all', API_URL_FIELDS)) ?? []
-  const region = ['Africa', 'America', 'Asia', 'Europe', 'Oceania']
+  const countries =
+    (await fetchCountries(service, API_URL_FIELDS, filter)) ?? []
+  const regionFilterItem = ['Africa', 'America', 'Asia', 'Europe', 'Oceania']
+
   return (
     <div className='wrapper'>
       <div className={Style['filter']}>
-        <div className={Style['filter__search']}>
-          <input
-            type='text'
-            id='search-country-input'
-            placeholder='Search for a country'
-            className={Style['filter__search__input']}
-          />
-          <SearchSvgIcon aria-hidden />
-        </div>
+        <SearchFilter />
         <DropdownSelect
           toggleLabel='Filter by Region'
           className={Style['filter__region']}
         >
-          {region.map((item: string, index: number) => (
+          {regionFilterItem.map((item: string, index: number) => (
             <li className={Style['filter__region__items']} key={index}>
               <PrimaryButton
                 type='button'

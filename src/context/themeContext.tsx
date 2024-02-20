@@ -9,7 +9,6 @@ import {
   useState,
 } from 'react'
 import { ThemeContextType } from '@/types/themeTypes'
-
 const initialState: ThemeContextType = {
   theme: 'light',
   toggleTheme: () => {},
