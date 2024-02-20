@@ -12,9 +12,7 @@ import { ThemeContextType } from '@/types/themeTypes'
 
 const initialState: ThemeContextType = {
   theme: 'light',
-  toggleTheme: () => {
-    console.log('test123')
-  },
+  toggleTheme: () => {},
 }
 const ThemeContext = createContext<ThemeContextType>(initialState)
 
