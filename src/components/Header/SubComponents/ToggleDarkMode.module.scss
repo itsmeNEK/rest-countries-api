@@ -1,7 +1,11 @@
 .dark-mode-button {
+  background-color: transparent;
   border: none;
   border-radius: 10px;
   font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   svg {
     height: 20px;

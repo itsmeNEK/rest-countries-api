@@ -1,30 +1,38 @@
 'use client'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import Style from './DropdownFilter.module.scss'
+import PrimaryButton from '@/components/common/button/PrimaryButton'
 import DropdownSelect from '@/components/common/form-control/DropdownSelect'
-import { searchParamsTypes } from '@/types/searchParamsTypes'
 
 const REGION_ITEMS = ['All', 'Africa', 'America', 'Asia', 'Europe', 'Oceania']
 const DEFAULT_LABEL = 'Filter by Region'
-const FOCUS_CLASS = Style['filter-region__items-focus']
-const SELECTED_CLASS = Style['filter-region__items-selected']
-export default function DropdownFilter({ searchParams }: searchParamsTypes) {
-  const router = useRouter()
-  const { region, search } = searchParams
+export default function DropdownFilter() {
+  const FOCUS_CLASS = Style['filter-region__items-focus']
+  const SELECTED_CLASS = Style['filter-region__items-selected']
+  const params = new URLSearchParams(useSearchParams())
+  const { push } = useRouter()
+  const region = params.get('region')
   const [selectedItem, setSelectedItem] = useState<number>(
     region ? REGION_ITEMS.indexOf(region) : 0
   )
+  const [showMenu, setShowMenu] = useState(false)
 
+  const toggleDropdown = () => {
+    setShowMenu((prevVal) => !prevVal)
+  }
+  const setParams = (val: string) => {
+    val === 'All' ? params.delete('region') : params.set('region', val)
+    push(`?${params.toString()}`)
+  }
   const onSelect = () => {
-    if (selectedItem === 0) {
-      router.replace(`${search ? '?search=' + search : '/'}`)
-      return
-    }
-    router.replace(
-      `${search ? '?search=' + search + '&' : '?'}region=${REGION_ITEMS[selectedItem]}`
-    )
+    setParams(REGION_ITEMS[selectedItem])
+    toggleDropdown()
+  }
+  const handleClick = (item: string) => () => {
+    setSelectedItem(REGION_ITEMS.indexOf(item))
+    setParams(item)
+    toggleDropdown()
   }
 
   const handleKeys = (e: KeyboardEvent) => {
@@ -58,21 +66,20 @@ export default function DropdownFilter({ searchParams }: searchParamsTypes) {
 
   return (
     <DropdownSelect
+      showMenu={showMenu}
+      toggleDropdown={toggleDropdown}
       handleKeys={handleKeys}
       toggleLabel={selectedItem !== 0 && region ? region : DEFAULT_LABEL}
       className={Style['filter-region']}
     >
       {REGION_ITEMS.map((item: string, index: number) => (
-        <Link
+        <PrimaryButton
           key={index}
-          href={`${search ? '?search=' + search + '&' : '?'}${index !== 0 ? 'region=' + item : ''}`}
+          onClick={handleClick(item)}
+          className={`${Style['filter-region__items']} ${region === item || (!region && item === 'All') ? SELECTED_CLASS : ''} ${selectedItem === index ? FOCUS_CLASS : ''}`}
         >
-          <li
-            className={`${Style['filter-region__items']} ${region === item || (!region && item === 'All') ? SELECTED_CLASS : ''} ${selectedItem === index ? FOCUS_CLASS : ''}`}
-          >
-            {item}
-          </li>
-        </Link>
+          <li>{item}</li>
+        </PrimaryButton>
       ))}
     </DropdownSelect>
   )

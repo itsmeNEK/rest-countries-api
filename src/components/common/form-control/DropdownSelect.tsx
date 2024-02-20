@@ -1,55 +1,56 @@
-'use client'
-import { ReactNode, useCallback, useEffect, useRef, useState } from 'react'
+import {
+  useCallback,
+  useEffect,
+  HTMLAttributes,
+  ReactNode,
+  RefObject,
+  useRef,
+} from 'react'
+import PrimaryButton from '../button/PrimaryButton'
 import ArrowDownSvgIcon from '../svg/ArrowDownSvgIcon'
 import Style from './DropdownSelect.module.scss'
 import { useClickOutside } from '@/hooks/useOnClickOutside'
 
-type DropdownProps = {
-  className?: string
+type DropdownProps = HTMLAttributes<HTMLDivElement> & {
   children?: ReactNode
   toggleLabel: string
+  showMenu: boolean
   handleKeys?: (event: KeyboardEvent) => void
-  onSelect?: () => void
+  toggleDropdown: () => void
 }
 
 const DropdownSelect = ({
   className,
   children,
   toggleLabel,
+  showMenu,
   handleKeys,
+  toggleDropdown,
 }: DropdownProps) => {
-  const [isOpen, setIsOpen] = useState(false)
   const dropdown = useRef<HTMLDivElement>(null)
 
-  const toggleDropdown = () => {
-    setIsOpen((prevVal) => !prevVal)
+  const handleClick = () => {
+    toggleDropdown()
   }
-  useClickOutside([dropdown], () => {
-    if (isOpen) {
-      setIsOpen(false)
-    }
+
+  useClickOutside([dropdown as RefObject<HTMLElement>], () => {
+    if (!showMenu) return
+    toggleDropdown()
   })
+
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      if (!isOpen) return
+      if (!showMenu) return
       switch (e.code) {
         case 'Escape':
-          setIsOpen((prevVal) => !prevVal)
-          break
-        case 'Enter':
-          handleKeys?.(e)
-          setIsOpen((prevVal) => !prevVal)
-          break
-        case 'Space':
-          handleKeys?.(e)
-          setIsOpen((prevVal) => !prevVal)
+          toggleDropdown
           break
         default:
           handleKeys?.(e)
           break
       }
     },
-    [handleKeys, isOpen]
+    [handleKeys, toggleDropdown, showMenu]
   )
 
   useEffect(() => {
@@ -57,20 +58,21 @@ const DropdownSelect = ({
     return () => {
       document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [handleKeyDown])
+  }, [handleKeyDown, showMenu])
+
   return (
     <div className={`${Style['dropdown']} ${className}`} ref={dropdown}>
-      <button
+      <PrimaryButton
         type='button'
         aria-label='Toggle Dropdown'
-        onClick={toggleDropdown}
+        onClick={handleClick}
         className={Style['dropdown__toggle']}
       >
         {toggleLabel}
         <ArrowDownSvgIcon aria-hidden />
-      </button>
+      </PrimaryButton>
 
-      {isOpen && <ul className={Style['dropdown__items']}>{children}</ul>}
+      {showMenu && <ul className={Style['dropdown__items']}>{children}</ul>}
     </div>
   )
 }

@@ -5,6 +5,7 @@ import SearchFilter from './SubComponent/SearchFilter/SearchFilter'
 import { searchParamsTypes } from '@/types/searchParamsTypes'
 import fetchCountries from '@/utils/fetchCountries'
 
+const API_URL_FIELDS = '?fields=name,flags,population,region,capital,cca3'
 export default async function Countries({ searchParams }: searchParamsTypes) {
   const { region, search } = searchParams
 
@@ -12,15 +13,14 @@ export default async function Countries({ searchParams }: searchParamsTypes) {
   const service = region || search ? searchType : 'all'
 
   const filter = region || search || ''
-  const API_URL_FIELDS = '?fields=name,flags,population,region,capital,cca3'
   const countries =
     (await fetchCountries(service, API_URL_FIELDS, filter, search)) ?? []
 
   return (
     <div className='wrapper'>
       <div className={Style['filter']}>
-        <SearchFilter searchParams={searchParams} />
-        <DropdownFilter searchParams={searchParams} />
+        <SearchFilter />
+        <DropdownFilter />
       </div>
       <div className={Style['countries']}>
         {countries.length > 0 ? (
