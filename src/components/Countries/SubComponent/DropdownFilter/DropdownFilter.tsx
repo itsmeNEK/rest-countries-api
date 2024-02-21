@@ -19,7 +19,7 @@ export default function DropdownFilter({
       toggleLabel='Filter by Region'
       className={Style['filter-region']}
     >
-      <Link href={`?region=`}>
+      <Link href={`?search=${search ? search : ''}&region=`}>
         <li
           className={`${Style['filter-region__items']} ${!region && Style['filter-region__items-selected']}`}
         >

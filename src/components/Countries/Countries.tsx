@@ -22,7 +22,6 @@ export default async function Countries({
   const countries =
     (await fetchCountries(service, API_URL_FIELDS, filter, search)) ?? []
 
-  const region = ['Africa', 'America', 'Asia', 'Europe', 'Oceania']
   return (
     <div className='wrapper'>
       <div className={Style['filter']}>
