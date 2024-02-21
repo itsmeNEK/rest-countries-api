@@ -14,7 +14,10 @@ export default async function Countries({
   }
 }) {
   const { region, search } = searchParams
-  const service = region || search ? (region ? 'region' : 'name') : 'all'
+
+  const searchType = region ? 'region' : 'name'
+  const service = region || search ? searchType : 'all'
+
   const filter = region || search || ''
   const API_URL_FIELDS = '?fields=name,flags,population,region,capital,cca3'
 
