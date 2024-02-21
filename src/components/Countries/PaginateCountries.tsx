@@ -41,6 +41,11 @@ export default function PaginateCountries({ data }: PaginateCountriesProps) {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [handleScroll])
+  useEffect(() => {
+    start.current = 0
+    limit.current = 12
+    setPaginatedData(sliceData(data))
+  }, [data])
 
   return (
     <>
