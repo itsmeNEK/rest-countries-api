@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Style from './DropdownFilter.module.scss'
 import DropdownSelect from '@/components/common/form-control/DropdownSelect'
 
+const REGION_ITEMS = ['Africa', 'America', 'Asia', 'Europe', 'Oceania']
 export default function DropdownFilter({
   searchParams,
 }: {
@@ -12,7 +13,6 @@ export default function DropdownFilter({
   }
 }) {
   const { region, search } = searchParams
-  const regionItems = ['Africa', 'America', 'Asia', 'Europe', 'Oceania']
 
   return (
     <DropdownSelect
@@ -26,7 +26,7 @@ export default function DropdownFilter({
           All
         </li>
       </Link>
-      {regionItems.map((item: string, index: number) => (
+      {REGION_ITEMS.map((item: string, index: number) => (
         <Link
           key={index}
           href={`?search=${search ? search : ''}&region=${item}`}
