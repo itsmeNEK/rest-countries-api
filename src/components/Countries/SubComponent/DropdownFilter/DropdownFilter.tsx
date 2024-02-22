@@ -47,6 +47,10 @@ export default function DropdownFilter({ searchParams }: searchParamsTypes) {
         e.preventDefault()
         onSelect()
         break
+      case ' ':
+        e.preventDefault()
+        onSelect()
+        break
       default:
         break
     }
