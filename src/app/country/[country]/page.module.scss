@@ -66,8 +66,12 @@
         padding: 6px 0;
         background-color: var(--primary);
         border-radius: 5px;
-        box-shadow: 0 2px 4px -4px var(--dark-gray);
+        box-shadow: 0 1px 4px -2px var(--dark-gray);
         font-size: 15px;
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
   }

@@ -74,7 +74,7 @@ export default async function CountryDetails({
               </p>
 
               <p>
-                <span>Suspan Region:</span> {formatNullableValue(subregion)}
+                <span>Sub Region:</span> {formatNullableValue(subregion)}
               </p>
 
               <p>

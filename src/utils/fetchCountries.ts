@@ -3,7 +3,8 @@ import { CountryTypes } from '@/types/countryTypes'
 export default async function fetchCountries(
   service: string | string[],
   fields: string,
-  filter?: string
+  filter: string,
+  search?: string
 ) {
   try {
     const response = await fetch(
@@ -27,7 +28,12 @@ export default async function fetchCountries(
       }
       return 0
     })
-    return data
+    if (!search) {
+      return data
+    }
+    return data.filter((item: CountryTypes) =>
+      item.name.common.toLowerCase().includes(search.toLowerCase())
+    )
   } catch (error: unknown) {
     console.error('Error fetching countries:', error)
   }
