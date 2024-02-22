@@ -28,7 +28,7 @@ export default function DropdownFilter({ searchParams }: searchParamsTypes) {
   }
 
   const handleKeys = (e: KeyboardEvent) => {
-    switch (e.key) {
+    switch (e.code) {
       case 'ArrowUp':
         e.preventDefault()
         setSelectedItem((prevIndex) =>
@@ -47,7 +47,7 @@ export default function DropdownFilter({ searchParams }: searchParamsTypes) {
         e.preventDefault()
         onSelect()
         break
-      case ' ':
+      case 'Space':
         e.preventDefault()
         onSelect()
         break

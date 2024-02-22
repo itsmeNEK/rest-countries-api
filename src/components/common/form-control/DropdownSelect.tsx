@@ -31,9 +31,8 @@ const DropdownSelect = ({
   })
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      console.log(e)
       if (!isOpen) return
-      switch (e.key) {
+      switch (e.code) {
         case 'Escape':
           setIsOpen((prevVal) => !prevVal)
           break
@@ -41,7 +40,7 @@ const DropdownSelect = ({
           handleKeys?.(e)
           setIsOpen((prevVal) => !prevVal)
           break
-        case ' ':
+        case 'Space':
           handleKeys?.(e)
           setIsOpen((prevVal) => !prevVal)
           break
