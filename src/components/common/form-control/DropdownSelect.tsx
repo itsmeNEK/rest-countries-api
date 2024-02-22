@@ -1,5 +1,5 @@
 'use client'
-import { ReactNode, useRef, useState } from 'react'
+import { ReactNode, useCallback, useEffect, useRef, useState } from 'react'
 import ArrowDownSvgIcon from '../svg/ArrowDownSvgIcon'
 import Style from './DropdownSelect.module.scss'
 import { useClickOutside } from '@/hooks/useOnClickOutside'
@@ -8,9 +8,16 @@ type DropdownProps = {
   className?: string
   children?: ReactNode
   toggleLabel: string
+  handleKeys?: (event: KeyboardEvent) => void
+  onSelect?: () => void
 }
 
-const DropdownSelect = (props: DropdownProps) => {
+const DropdownSelect = ({
+  className,
+  children,
+  toggleLabel,
+  handleKeys,
+}: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const dropdown = useRef<HTMLDivElement>(null)
 
@@ -22,20 +29,44 @@ const DropdownSelect = (props: DropdownProps) => {
       setIsOpen(false)
     }
   })
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (!isOpen) return
+      switch (e.key) {
+        case 'Escape':
+          setIsOpen((prevVal) => !prevVal)
+          break
+        case 'Enter':
+          handleKeys?.(e)
+          setIsOpen((prevVal) => !prevVal)
+          break
+        default:
+          handleKeys?.(e)
+          break
+      }
+    },
+    [handleKeys, isOpen]
+  )
 
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [handleKeyDown])
   return (
-    <div className={`${Style['dropdown']} ${props.className}`} ref={dropdown}>
+    <div className={`${Style['dropdown']} ${className}`} ref={dropdown}>
       <button
         type='button'
         aria-label='Toggle Dropdown'
         onClick={toggleDropdown}
         className={Style['dropdown__toggle']}
       >
-        {props.toggleLabel}
+        {toggleLabel}
         <ArrowDownSvgIcon aria-hidden />
       </button>
 
-      {isOpen && <ul className={Style['dropdown__items']}>{props.children}</ul>}
+      {isOpen && <ul className={Style['dropdown__items']}>{children}</ul>}
     </div>
   )
 }

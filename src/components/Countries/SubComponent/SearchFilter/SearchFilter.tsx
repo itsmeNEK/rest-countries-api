@@ -3,15 +3,9 @@ import { useRouter } from 'next/navigation'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import Style from './SearchFilter.module.scss'
 import SearchSvgIcon from '@/components/common/svg/SearchSvgIcon'
+import { searchParamsTypes } from '@/types/searchParamsTypes'
 
-export default function SearchFilter({
-  searchParams,
-}: {
-  searchParams: {
-    region: string
-    search: string
-  }
-}) {
+export default function SearchFilter({ searchParams }: searchParamsTypes) {
   const { region, search } = searchParams
   const router = useRouter()
   const [searchInput, setSearchInput] = useState(search)
