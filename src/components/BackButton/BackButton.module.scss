@@ -1,4 +1,6 @@
 .back-button {
+  display: flex;
+  align-items: center;
   font-size: 15px;
   padding: 5px 30px;
   background-color: var(--primary);
