@@ -5,6 +5,7 @@
   background-color: var(--primary);
   box-sizing: content-box;
   box-shadow: 1px 1px 5px -5px var(--black);
+  transition: transform 300ms;
   a {
     color: var(--black);
     text-decoration: none;
@@ -35,5 +36,8 @@
         font-weight: 400;
       }
     }
+  }
+  &:hover {
+    transform: scale(1.1);
   }
 }

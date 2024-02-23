@@ -19,7 +19,7 @@ const PrimaryButton = forwardRef(
     return (
       <button
         ref={ref}
-        className={`${className} ${Style['primary-button']}`}
+        className={`${Style['primary-button']} ${className} `}
         {...props}
       >
         {children}

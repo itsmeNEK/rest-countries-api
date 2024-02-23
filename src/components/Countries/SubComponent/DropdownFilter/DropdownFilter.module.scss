@@ -5,7 +5,7 @@
   width: 60%;
 
   ul {
-    box-shadow: 1px 1px 5px -5px var(--black);
+    box-shadow: 0px 0px 5px -3px var(--black);
     border-radius: 5px;
 
     a {
@@ -14,8 +14,10 @@
     }
   }
   &__items {
-    padding: 2px 25px;
+    background-color: var(--primary);
+    padding: 7px 25px;
     width: 100%;
+    display: flex;
     justify-content: start;
     &:hover {
       background-color: var(--primary-very-light);
