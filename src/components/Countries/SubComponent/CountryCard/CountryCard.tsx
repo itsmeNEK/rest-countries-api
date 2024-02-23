@@ -14,7 +14,7 @@ export default function CountryCard({ country }: CountryCardProps) {
       <Link href={`/country/${country.cca3}`}>
         <Image
           priority
-          width={247}
+          width={260}
           height={150}
           src={country.flags.png}
           alt={`${country.flags.alt ? country.flags.alt : 'A Flag Image of ' + country.name.common}`}

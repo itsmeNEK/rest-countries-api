@@ -11,15 +11,20 @@ import fetchCountryNames from '@/utils/fetchCountryName'
 const API_URL_FIELDS =
   '?fields=name,flags,population,region,subregion,capital,languages,currencies,tld,altSpellings,borders,cca3'
 
-export default async function CountryDetails({
-  params,
-}: {
+type CountryParamsType = {
   params: {
     country: string
   }
-}) {
-  const data =
-    (await fetchCountries('alpha', API_URL_FIELDS, params.country)) ?? []
+}
+
+export async function generateMetadata({ params }: CountryParamsType) {
+  return {
+    title: `Country Details: ${params.country}`,
+    description: `Information about the country with the code ${params.country}.`,
+  }
+}
+export default async function CountryDetails({ params }: CountryParamsType) {
+  const data = await fetchCountries('alpha', API_URL_FIELDS, params.country)
   if (data.length === 0) {
     return notFound()
   }
@@ -39,7 +44,7 @@ export default async function CountryDetails({
 
   const bordersNames = await fetchCountryNames(borders)
   return (
-    <main className='wrapper'>
+    <section className='wrapper'>
       <div className={Style['top-navigation']}>
         <BackButton />
       </div>
@@ -61,7 +66,7 @@ export default async function CountryDetails({
           <div className={Style['country-container__details__content']}>
             <div className={Style['divider']}>
               <p>
-                <span>Native Name:</span> {formatNullableValue(altSpellings[1])}
+                <span>Native Name:</span> {formatNullableValue(altSpellings)}
               </p>
 
               <p>
@@ -78,22 +83,24 @@ export default async function CountryDetails({
               </p>
 
               <p>
-                <span>Capital:</span> {formatNullableValue(capital[0])}
+                <span>Capital:</span> {formatNullableValue(capital)}
               </p>
             </div>
             <div className={Style['divider']}>
               <p>
-                <span>Top Level Domain:</span> {formatNullableValue(tld[0])}
+                <span>Top Level Domain:</span> {formatNullableValue(tld)}
               </p>
 
               <p>
                 <span>Currencies:</span>
-                {renderObjectValues({ data: currencies, fieldName: 'name' })}
+                {currencies
+                  ? renderObjectValues({ data: currencies, fieldName: 'name' })
+                  : '-'}
               </p>
 
               <p>
                 <span>Languages:</span>
-                {renderObjectValues({ data: languages })}
+                {languages ? renderObjectValues({ data: languages }) : '-'}
               </p>
             </div>
           </div>
@@ -122,6 +129,6 @@ export default async function CountryDetails({
           </div>
         </div>
       </div>
-    </main>
+    </section>
   )
 }
