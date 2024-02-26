@@ -6,6 +6,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react'
 import { ThemeContextType } from '@/types/themeTypes'
@@ -20,11 +21,35 @@ type ThemeContextProps = {
 }
 export function ThemeProvider({ children }: ThemeContextProps) {
   const [theme, setTheme] = useState<string>(initialState.theme)
-
-  useEffect(() => {
+  const isMounted = useRef(false)
+  const getSystemTheme = () => {
+    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const systemTheme = isDark ? 'dark' : 'light'
+    return systemTheme
+  }
+  const applyTheme = useCallback((theme: string) => {
     const root = document.documentElement
     root.setAttribute('data-theme', theme)
-  }, [theme])
+  }, [])
+
+  const mountDefault = useCallback(() => {
+    const browserTheme = getSystemTheme()
+    const storedTheme = localStorage.getItem('theme')
+    if (storedTheme) {
+      setTheme(storedTheme)
+    } else {
+      setTheme(browserTheme ? 'dark' : initialState.theme)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!isMounted.current) {
+      mountDefault()
+    }
+    localStorage.setItem('theme', theme)
+    applyTheme(theme)
+    isMounted.current = true
+  }, [theme, isMounted, applyTheme, mountDefault])
 
   const toggleTheme = useCallback(() => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'))

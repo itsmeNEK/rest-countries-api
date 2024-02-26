@@ -17,15 +17,14 @@ export default function ToggleDarkMode() {
       {theme === 'dark' ? (
         <>
           <MoonSvgIcon aria-hidden />
-          <span>Dark</span>
+          <span>Dark Mode</span>
         </>
       ) : (
         <>
           <SunSvgIcon aria-hidden />
-          <span>Light</span>
+          <span>Light Mode</span>
         </>
-      )}{' '}
-      Mode
+      )}
     </PrimaryButton>
   )
 }

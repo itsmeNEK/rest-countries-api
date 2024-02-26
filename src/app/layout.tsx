@@ -7,19 +7,18 @@ export const metadata: Metadata = {
   title: 'REST Countries API ',
   description: 'NextJS with REST API',
 }
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <html lang='en' data-theme='light'>
+    <html lang='en' data-theme='light' suppressHydrationWarning>
       <body>
         <ThemeProvider>
           <Header />
+          <main>{children}</main>
         </ThemeProvider>
-        <main>{children}</main>
       </body>
     </html>
   )
