@@ -2,6 +2,7 @@
 import Style from './ToggleDarkMode.module.scss'
 import PrimaryButton from '@/components/common/button/PrimaryButton'
 import MoonSvgIcon from '@/components/common/svg/MoonSvgIcon'
+import SunSvgIcon from '@/components/common/svg/SunSvgIcon'
 import { useThemeContext } from '@/context/themeContext'
 
 export default function ToggleDarkMode() {
@@ -13,8 +14,17 @@ export default function ToggleDarkMode() {
       className={Style['dark-mode-button']}
       type='button'
     >
-      <MoonSvgIcon aria-hidden />
-      {theme === 'dark' ? 'Dark' : 'Light'} Mode
+      {theme === 'dark' ? (
+        <>
+          <MoonSvgIcon aria-hidden />
+          <span>Dark Mode</span>
+        </>
+      ) : (
+        <>
+          <SunSvgIcon aria-hidden />
+          <span>Light Mode</span>
+        </>
+      )}
     </PrimaryButton>
   )
 }

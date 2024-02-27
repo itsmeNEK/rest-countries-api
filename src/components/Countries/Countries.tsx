@@ -17,7 +17,7 @@ export default async function Countries({ searchParams }: searchParamsTypes) {
     (await fetchCountries(service, API_URL_FIELDS, filter, search)) ?? []
 
   return (
-    <div className='wrapper'>
+    <section className='wrapper'>
       <div className={Style['filter']}>
         <SearchFilter />
         <DropdownFilter />
@@ -29,6 +29,6 @@ export default async function Countries({ searchParams }: searchParamsTypes) {
           <div>No countries found</div>
         )}
       </div>
-    </div>
+    </section>
   )
 }
